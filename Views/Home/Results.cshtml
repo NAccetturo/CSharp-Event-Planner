@@ -1,0 +1,20 @@
+@using BeltExam.Models
+@model User
+<html lang="en">
+<head>
+    <title>Results!</title>
+</head>
+<body>
+    <div class="wrapper">
+        <a href="/reset">Log Out</a>
+        <h1>Success</h1>
+        <h3>Info Submitted: </h3>
+        <ul>
+            <li>First Name: @Model.FirstName</li>
+            <li>Last Name: @Model.LastName</li>
+            <li>Email: @Model.Email</li>
+            <li>Password: @Model.Password</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+
+@model ActivityForm
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Activity</title>
+</head>
+<body>
+    <h1>Dojo Activity Center</h1>
+    <a href="/">Home</a>
+    <a href="/reset">Log Out</a>
+    <form asp-action="Create_Event" asp-controller="Home" method="post">
+        <span asp-validation-for="Name"></span>
+        <label asp-for="Name">Title</label>
+        <input asp-for="Name">
+        <span asp-validation-for="DateAndTime"></span>
+        <label asp-for="DateAndTime">Date And Time</label>
+        <input asp-for="DateAndTime">
+        <span asp-validation-for="Duration"></span>
+        <label asp-for="Duration">Duration</label>
+        <input asp-for="Duration">
+        <!-- <label asp-for="Duration2"></label> -->
+        <select name="Duration2" id="">
+                <option value="Minutes">Minutes</option>
+                <option value="Hours">Hours</option>
+                <option value="Days">Days</option>
+        <span asp-validation-for="Description"></span>
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description">
+        <input type="hidden" name="UserId" value="@ViewBag.User.UserId">
+        <input type="hidden" name="Creator" value="@ViewBag.User">
+        <button>Create</button>
+    </form>
+</body>
+</html>

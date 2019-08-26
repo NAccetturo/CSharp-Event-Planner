@@ -1,0 +1,26 @@
+@model Event
+<html lang="en">
+<head>
+    <title>This Event!</title>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Dojo Activity Center</h1>
+        <a href="/">Home</a>
+        <a href="/reset">Log Out</a>
+        <h2>@Model.Name</h2>
+        <h3>Event Coordinator: @Model.Creator.FirstName @Model.Creator.LastName </h3>
+        <h3>Description:</h3>
+        <p>@Model.Description</p>
+        <h3>Guests:</h3>
+        <ul>
+            @{
+                foreach(var i in @Model.RSVPS)
+                {
+                    <p>@i.User.FirstName</p>
+                }
+            }
+        </ul>
+    </div>
+</body>
+</html>

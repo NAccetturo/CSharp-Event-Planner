@@ -1,0 +1,98 @@
+@using System;
+@using System.Collections.Generic;
+@using System.Diagnostics;
+@using System.Linq;
+@using System.Threading.Tasks;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.EntityFrameworkCore;
+@using System.Globalization;
+@using System.Threading;
+@using BeltExam.Models
+@model List<Event>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard!</title>
+</head>
+<body>
+    <div>
+        <h1>Dojo Activity Center</h1>
+        <h4>Welcome,@ViewBag.User.FirstName!</h4>
+        <a href="/reset">Log Out</a>
+        <!-- <h2>The list of Dishes for IRONKOOK!</h2> -->
+    </div>
+    <div>
+        <table>
+            <th>
+                Activity
+            </th>
+            <th>
+                Date and Time
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                Event Coordinator
+            </th>
+            <th>
+                Number of Participants
+            </th>
+            <th>
+                Actions
+            </th>
+                @{
+                    foreach(var i in @Model)
+                {
+                    bool unique = false;
+                <tr>
+                    <td>
+                        <a href="/view_event/@i.EventId/">@i.Name</a>
+                    </td>
+                    <td>
+                        @i.DateAndTime
+                    </td>
+                    <td>
+                        @i.Duration
+                    </td>
+                    <td>
+                        @i.Creator.FirstName @i.Creator.LastName
+                    </td>
+                    <td>
+                        @i.RSVPS.Count
+                    </td>
+                    <td>
+                    @if(@ViewBag.User.UserId == @i.UserId)
+                    {
+                        unique = true;
+                        <a href="/delete_event/@i.EventId">Delete</a>
+                    }
+                    else
+                        {
+                            foreach(var RSVP in @i.RSVPS)
+                            {
+                                if(@ViewBag.User.UserId == @RSVP.UserId && @ViewBag.User.UserId != @i.UserId)
+                                {
+                                    unique = true;
+                                }
+                            }
+                        }
+                    @if(@unique == false)
+                        {
+                            <a href="/join/@i.EventId/@ViewBag.User.UserId">Join</a>
+                        }
+                    else
+                    {
+                        <a href="/leave_event/@i.EventId/@ViewBag.User.UserId">Leave</a>
+                    }
+                    </td>
+                </tr>
+                }
+                }
+        </table>
+    </div>
+    <a href="/create/activity">Add New Activity</a>
+</body>
+</html>
